@@ -15,9 +15,21 @@ function generateQrcode(url,size){
 
 function clearui(){
     qrcode.innerHTML="";
+    const btn = document.getElementById("save_link");
+    if(btn){
+        btn.remove();
+        }
 
+};  
+
+function createButton(img_src){
+    const links = document.createElement("a");
+    links.id="save_link";
+    links.href=img_src;
+    links.download="qrcode"
+    links.innerHTML="save Image";
+    document.getElementById("save_btn").appendChild(links);
 }
-
 
 
 
@@ -31,7 +43,11 @@ function onGenerateSubmit(event){
     }
     else{
             generateQrcode(url,size);
-            console.log(url,size);
+            setTimeout(() => {
+                const img_src=qrcode.querySelector("img").src;
+                console.log(img_src);
+                createButton(img_src);
+            }, 500);
 
         }
 }
